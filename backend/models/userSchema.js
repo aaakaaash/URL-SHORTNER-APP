@@ -15,11 +15,9 @@ const userSchema = new mongoose.Schema({
     type: String,
      required: true 
     },
-  role: { 
-    type: String,
-     default: 'user'
-     },
   isVerified: { type: Boolean, default: true },
+  Urls: [{ type: mongoose.Schema.Types.ObjectId, ref: 'URL' }],
+  analytics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Analytics' }],
 });
 
 module.exports = mongoose.model('User', userSchema);

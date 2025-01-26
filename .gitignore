@@ -9,6 +9,7 @@ frontend/.env
 **/Dockerfile
 **/.dockerignore
 
+.env
 
 .DS_Store
 

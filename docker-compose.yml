@@ -1,19 +1,29 @@
 version: "3.8"
+
 services:
   backend:
     build: ./backend
     ports:
       - "5000:5000"
     environment:
+      
       - MONGO_URI=mongodb://mongo:27017/urlshortener
+      - SESSION_SECRET=${SESSION_SECRET}
     depends_on:
       - mongo
+    volumes:
+      - ./backend:/app
+    command: npm run dev  
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-
+    volumes:
+      - ./frontend:/app
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000  
+    command: npm run dev  
   mongo:
     image: mongo:6.0
     container_name: mongodb
@@ -21,6 +31,9 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
 
 volumes:
   mongo-data:
